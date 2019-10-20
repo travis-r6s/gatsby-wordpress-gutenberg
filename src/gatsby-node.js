@@ -17,8 +17,12 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
     // Normalize blocks
     const allParsedBlocks = []
     for (const block of node.blocks) {
-      const parsedBlock = await parseBlock(block, { node, wp, https, excludedBlocks })
-      if (parsedBlock) allParsedBlocks.push(parsedBlock)
+      try {
+        const parsedBlock = await parseBlock(block, { node, wp, https, excludedBlocks })
+        if (parsedBlock) allParsedBlocks.push(parsedBlock)
+      } catch (error) {
+        throw new Error(error.message)
+      }
     }
 
     // Create Nodes for each block, and any images if relevant.
