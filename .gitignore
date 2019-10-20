@@ -1,3 +1,4 @@
 /*.js
 !index.js
+!.eslintrc.js
 node_modules
