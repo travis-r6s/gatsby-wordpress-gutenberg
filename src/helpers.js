@@ -63,19 +63,3 @@ export const transformImage = async (image, { nodeData, store, cache, createNode
   return fileNode
 }
 
-export const Cover = async ({ json, innerBlocksJson }) => {
-  const { attributes: coverAttributes } = json.find(el => el.tagName === 'div')
-  const { value: backgroundAttribute } = coverAttributes.find(({ key }) => key === 'style')
-  const backgroundSourceUrl = backgroundAttribute.replace('background-image:url(', '').slice(0, -1).replace('https://', '').replace('http://', '')
-
-  const [paragraphBlock] = innerBlocksJson
-  const { children: [text] } = paragraphBlock.json.find(el => el.tagName === 'p')
-
-  return {
-    type: 'Cover',
-    fields: {
-      backgroundImage: backgroundSourceUrl,
-      text: text.content
-    }
-  }
-}
