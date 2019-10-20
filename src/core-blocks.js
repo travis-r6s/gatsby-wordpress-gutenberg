@@ -45,3 +45,13 @@ export const List = async ({ json }) => {
     items
   }
 }
+
+export const Quote = async ({ json }) => {
+  const { children: QuoteChildren } = json.find(el => el.tagName === 'blockquote')
+  const [text, citation] = QuoteChildren.map(({ children: [text] }) => text.content)
+  return {
+    type: 'Quote',
+    text,
+    citation
+  }
+}
