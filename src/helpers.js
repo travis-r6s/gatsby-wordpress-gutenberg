@@ -64,7 +64,7 @@ export const transformFile = async (url, { nodeData, store, cache, createNode, c
       createNodeId
     })
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error)
   }
   return fileNode
 }
