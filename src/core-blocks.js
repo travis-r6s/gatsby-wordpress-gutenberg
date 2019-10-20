@@ -66,3 +66,24 @@ export const Quote = async ({ json }) => {
     }
   }
 }
+
+export const Audio = async ({ json }, { wp }) => {
+  const { children: audioChildren } = json.find(el => el.tagName === 'figure')
+  const [sourceUrl, caption] = audioChildren.map(el => {
+    if (el.tagName === 'audio') {
+      const { value: sourceUrl } = el.attributes.find(({ key }) => key === 'src')
+      return sourceUrl
+    }
+    if (el.tagName === 'figcaption') {
+      const [text] = el.children
+      return text.content
+    }
+  })
+  return {
+    type: 'Audio',
+    fields: {
+      sourceUrl,
+      caption
+    }
+  }
+}
