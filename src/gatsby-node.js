@@ -10,7 +10,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
   if (!baseUrl) throw new Error('You must include the Base URL')
 
   const wp = axios.create({
-    baseURL: `${https ? 'https' : 'http'}${baseUrl}/wp-json/wp/v2/media/`
+    baseURL: `${https ? 'https' : 'http'}://${baseUrl}/wp-json/wp/v2/media/`
   })
 
   if (includedTypes.includes(node.internal.type)) {
