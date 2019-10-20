@@ -2,7 +2,7 @@ import { parseImage } from './helpers'
 
 export const Heading = ({ json }) => {
   const { tagName: size, children: headingChildren } = json.find(el => el.type === 'element' && el.tagName.includes('h'))
-  const [text] = headingChildren.map(({}))
+  const [text] = headingChildren.map(text => text.content)
   return {
     type: 'Heading',
     content: {
