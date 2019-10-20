@@ -33,16 +33,16 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
       // If we have an image, create a remote file node.
       if (block.type === 'Image') {
         try {
-          const sourceUrl = block.fields.image.sourceUrl
+          const sourceUrl = block.content.image.sourceUrl
           const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
-          if (fileNode) nodeData.fields.image.localFile___NODE = fileNode.id
+          if (fileNode) nodeData.content.image.localFile___NODE = fileNode.id
         } catch (error) {
           throw new Error(error.message)
         }
       }
       if (block.type === 'Gallery') {
         const images = []
-        for await (const image of block.fields.images) {
+        for await (const image of block.content.images) {
           try {
             const sourceUrl = image.sourceUrl
             const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
@@ -51,7 +51,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
             throw new Error(error.message)
           }
         }
-        nodeData.fields.images = images
+        nodeData.content.images = images
       }
 
       // Delete the JSON field
