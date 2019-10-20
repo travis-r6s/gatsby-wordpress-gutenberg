@@ -72,7 +72,7 @@ export const Audio = async ({ json }) => {
   const [sourceUrl, caption] = audioChildren.map(el => {
     if (el.tagName === 'audio') {
       const { value: sourceUrl } = el.attributes.find(({ key }) => key === 'src')
-      return sourceUrl
+      return sourceUrl.replace('https://', '').replace('http://', '')
     }
     if (el.tagName === 'figcaption') {
       const [text] = el.children
