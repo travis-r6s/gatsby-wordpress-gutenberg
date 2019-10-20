@@ -36,3 +36,12 @@ export const Gallery = async ({ json }, { wp, https }) => {
 
   return { type: 'Gallery', images }
 }
+
+export const List = async ({ json }) => {
+  const { children: listChildren } = json.find(el => el.tagName === 'ul')
+  const items = listChildren.map(({ children: [text] }) => text.content)
+  return {
+    type: 'List',
+    items
+  }
+}
