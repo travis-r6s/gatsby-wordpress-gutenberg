@@ -21,7 +21,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
         const parsedBlock = await parseBlock(block, { node, wp, https, excludedBlocks })
         if (parsedBlock) allParsedBlocks.push(parsedBlock)
       } catch (error) {
-        throw new Error(error.message)
+        console.error(error.message)
       }
     }
 
@@ -37,7 +37,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
           const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
           if (fileNode) nodeData.content.image.localFile___NODE = fileNode.id
         } catch (error) {
-          throw new Error(error.message)
+          console.error(error.message)
         }
       }
       if (block.type === 'Gallery') {
@@ -48,10 +48,19 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
             const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
             if (fileNode) images.push({ ...image, localFile___NODE: fileNode.id })
           } catch (error) {
-            throw new Error(error.message)
+            console.error(error.message)
           }
         }
         nodeData.content.images = images
+      }
+      if (block.type === 'Audio') {
+        try {
+          const sourceUrl = block.content.audio.sourceUrl
+          const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
+          if (fileNode) nodeData.content.audio.localFile___NODE = fileNode.id
+        } catch (error) {
+          console.error(error.message)
+        }
       }
 
       // Delete the JSON field
