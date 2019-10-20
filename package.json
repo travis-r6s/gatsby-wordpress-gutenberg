@@ -1,0 +1,21 @@
+{
+  "name": "gatsby-wordpress-gutenberg",
+  "version": "0.0.1",
+  "description": "Gutenberg Blocks plugin for gatsby-plugin-wordpress",
+  "main": "index.js",
+  "author": {
+    "name": "Travis Reynolds",
+    "email": "travis@cirruscreative.co.uk"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production babel src --out-dir .",
+    "watch": "babel -w src --out-dir ."
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "babel-preset-gatsby": "^0.2.20",
+    "cross-env": "^6.0.3"
+  }
+}
