@@ -14,8 +14,12 @@ const parseBlock = async (blockContent, { node, wp, https }) => {
   if (!blockName) return { type: 'Break', content: '<br/>' }
   if (blockName === 'core/paragraph') return { type: 'Paragraph', content: innerHTML }
   if (blockName === 'core/image') {
-    const image = await replaceImage(json, { wp, https })
-    return { type: 'Image', image }
+    try {
+      const image = await replaceImage(json, { wp, https })
+      return { type: 'Image', image }
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
   if (blockName === 'core/gallery') {
     // We have many images - find the ul element, which contains a list of all the images
@@ -24,8 +28,12 @@ const parseBlock = async (blockContent, { node, wp, https }) => {
     const images = []
     // Now we can loop through that list, replacing images as usual, and pushing to an array
     for await (const imageEl of imagesElements) {
-      const image = await replaceImage(imageEl.children, { wp, https })
-      images.push(image)
+      try {
+        const image = await replaceImage(imageEl.children, { wp, https })
+        images.push(image)
+      } catch (error) {
+        throw new Error(error.message)
+      }
     }
 
     return { type: 'Gallery', images }
