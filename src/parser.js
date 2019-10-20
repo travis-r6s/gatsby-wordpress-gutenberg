@@ -1,4 +1,5 @@
 import { parse } from 'himalaya'
+import camelCase from 'camelcase'
 
 import * as CoreBlocks from './core-blocks'
 
@@ -32,10 +33,7 @@ const parseBlock = async (blockContent, options) => {
   * So we have something like { Core: { Paragraph ()..., Gallery ()... } }
  */
   const blockCategories = { Core: CoreBlocks }
-  const [category, block] = blockName.split('/').map(v => {
-    const [first, ...rest] = v.split('')
-    return `${first.toUpperCase()}${rest.join('')}`
-  })
+  const [category, block] = blockName.split('/').map(v => camelCase(v, { pascalCase: true }))
 
   try {
     const blockHandler = blockCategories[ category ][ block ]
