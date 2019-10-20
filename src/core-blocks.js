@@ -5,21 +5,21 @@ export const Heading = ({ json }) => {
   const [text] = headingChildren.map(({}))
   return {
     type: 'Heading',
-    fields: {
+    content: {
       text,
       size
     }
   }
 }
 
-export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', fields: { content: innerHTML } })
+export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', content: { html: innerHTML } })
 
 export const Image = async ({ json }, { wp, https }) => {
   try {
     const image = await parseImage(json, { wp, https })
     return {
       type: 'Image',
-      fields: { image }
+      content: { image }
     }
   } catch (error) {
     throw new Error(error.message)
@@ -42,7 +42,7 @@ export const Gallery = async ({ json }, { wp, https }) => {
 
   return {
     type: 'Gallery',
-    fields: { images }
+    content: { images }
   }
 }
 
@@ -51,7 +51,7 @@ export const List = async ({ json }) => {
   const items = listChildren.map(({ children: [text] }) => text.content)
   return {
     type: 'List',
-    fields: { items }
+    content: { items }
   }
 }
 
@@ -60,7 +60,7 @@ export const Quote = async ({ json }) => {
   const [text, citation] = quoteChildren.map(({ children: [text] }) => text.content)
   return {
     type: 'Quote',
-    fields: {
+    content: {
       text,
       citation
     }
@@ -77,7 +77,7 @@ export const Cover = async ({ json, innerBlocksJson }) => {
 
   return {
     type: 'Cover',
-    fields: {
+    content: {
       backgroundImage: backgroundSourceUrl,
       text: text.content
     }
@@ -98,7 +98,7 @@ export const Audio = async ({ json }) => {
   })
   return {
     type: 'Audio',
-    fields: {
+    content: {
       sourceUrl,
       caption
     }

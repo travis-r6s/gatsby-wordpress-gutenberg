@@ -3,7 +3,7 @@ import { createRemoteFileNode } from 'gatsby-source-filesystem'
 
 export const processBlock = (block, { node, createNodeId, createContentDigest }) => {
   const nodeId = createNodeId(`gutenberg-block-${nanoid(6)}`)
-  const nodeContent = JSON.stringify(block.fields)
+  const nodeContent = JSON.stringify(block.content)
 
   return {
     ...block,
@@ -13,7 +13,7 @@ export const processBlock = (block, { node, createNodeId, createContentDigest })
     internal: {
       type: `GutenbergBlock${block.type}`,
       content: nodeContent,
-      contentDigest: createContentDigest(block.fields)
+      contentDigest: createContentDigest(block.content)
     }
   }
 }
