@@ -84,12 +84,12 @@ export const Cover = ({ json, innerBlocksJson }) => {
   }
 }
 
-export const Audio = ({ json }) => {
+export const Audio = ({ json }, { https }) => {
   const { children: audioChildren } = json.find(el => el.tagName === 'figure')
   const [sourceUrl, caption] = audioChildren.map(el => {
     if (el.tagName === 'audio') {
       const { value: sourceUrl } = el.attributes.find(({ key }) => key === 'src')
-      return sourceUrl.replace('https://', '').replace('http://', '')
+      return https ? sourceUrl.replace('http://', 'https://') : sourceUrl.replace('https://', 'http://')
     }
     if (el.tagName === 'figcaption') {
       const [text] = el.children
@@ -99,8 +99,10 @@ export const Audio = ({ json }) => {
   return {
     type: 'Audio',
     content: {
-      sourceUrl,
-      caption
+      caption,
+      audio: {
+        sourceUrl
+      }
     }
   }
 }
