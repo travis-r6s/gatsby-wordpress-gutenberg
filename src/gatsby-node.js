@@ -34,7 +34,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
       if (block.type === 'Image') {
         try {
           const fileNode = await transformImage(block.fields.image, { nodeData, store, cache, createNode, createNodeId })
-          if (fileNode) nodeData.image.localFile___NODE = fileNode.id
+          if (fileNode) nodeData.fields.image.localFile___NODE = fileNode.id
         } catch (error) {
           throw new Error(error.message)
         }
@@ -49,8 +49,11 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
             throw new Error(error.message)
           }
         }
-        nodeData.images = images
+        nodeData.fields.images = images
       }
+
+      // Delete the JSON field
+      delete nodeData.json
       // Create the Node
       await createNode(nodeData)
       // Push the Node ID to the array to use in parent block
