@@ -30,7 +30,7 @@ export const replaceImage = async (json, { wp, https }) => {
 
   try {
     // Now fetch the original URL from the API
-    const { data: { source_url } } = await wp.get(id)
+    const { source_url } = await wp.get(id).then(({ data }) => data).catch(e => { throw new Error(e) })
 
     return {
       imageId: id,
@@ -38,7 +38,7 @@ export const replaceImage = async (json, { wp, https }) => {
       sourceUrl: https ? source_url : source_url.replace('https', 'http')
     }
   } catch (error) {
-    throw new Error(error.response.data)
+    throw new Error(error.message)
   }
 }
 
