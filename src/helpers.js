@@ -46,11 +46,11 @@ export const parseImage = async (json, { wp, https }) => {
   }
 }
 
-export const transformImage = async (image, { nodeData, store, cache, createNode, createNodeId }) => {
+export const transformFile = async (url, { nodeData, store, cache, createNode, createNodeId }) => {
   let fileNode
   try {
     fileNode = await createRemoteFileNode({
-      url: image.sourceUrl,
+      url,
       parentNodeId: nodeData.id,
       store,
       cache,
@@ -62,4 +62,3 @@ export const transformImage = async (image, { nodeData, store, cache, createNode
   }
   return fileNode
 }
-
