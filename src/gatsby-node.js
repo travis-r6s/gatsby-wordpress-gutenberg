@@ -25,16 +25,16 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
     const allBlockNodeIds = []
 
     for await (const block of allParsedBlocks) {
-      const nodeData = processBlock(block)
+      const nodeData = processBlock(block, { node, createNodeId, createContentDigest })
       // If we have an image, create a remote file node.
       if (block.type === 'Image') {
-        const fileNode = await transformImage(block.image, nodeData)
+        const fileNode = await transformImage(block.image, { nodeData, store, cache, createNode, createNodeId })
         if (fileNode) nodeData.image.localFile___NODE = fileNode.id
       }
       if (block.type === 'Gallery') {
         const images = []
         for await (const image of block.images) {
-          const fileNode = await transformImage(image, nodeData)
+          const fileNode = await transformImage(image, { nodeData, store, cache, createNode, createNodeId })
           if (fileNode) images.push({ ...image, localFile___NODE: fileNode.id })
         }
         nodeData.images = images

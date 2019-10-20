@@ -42,12 +42,12 @@ export const replaceImage = async (json, { wp, https }) => {
   }
 }
 
-export const transformImage = async (image, { node, store, cache, createNode, createNodeId }) => {
+export const transformImage = async (image, { nodeData, store, cache, createNode, createNodeId }) => {
   let fileNode
   try {
     fileNode = await createRemoteFileNode({
       url: image.sourceUrl,
-      parentNodeId: node.id,
+      parentNodeId: nodeData.id,
       store,
       cache,
       createNode,
