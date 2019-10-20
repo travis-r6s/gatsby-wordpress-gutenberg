@@ -46,7 +46,7 @@ export const Gallery = async ({ json }, { wp, https }) => {
   }
 }
 
-export const List = async ({ json }) => {
+export const List = ({ json }) => {
   const { children: listChildren } = json.find(el => el.tagName === 'ul')
   const items = listChildren.map(({ children: [text] }) => text.content)
   return {
@@ -55,7 +55,7 @@ export const List = async ({ json }) => {
   }
 }
 
-export const Quote = async ({ json }) => {
+export const Quote = ({ json }) => {
   const { children: quoteChildren } = json.find(el => el.tagName === 'blockquote')
   const [text, citation] = quoteChildren.map(({ children: [text] }) => text.content)
   return {
@@ -67,7 +67,7 @@ export const Quote = async ({ json }) => {
   }
 }
 
-export const Cover = async ({ json, innerBlocksJson }) => {
+export const Cover = ({ json, innerBlocksJson }) => {
   const { attributes: coverAttributes } = json.find(el => el.tagName === 'div')
   const { value: backgroundAttribute } = coverAttributes.find(({ key }) => key === 'style')
   const backgroundSourceUrl = backgroundAttribute.replace('background-image:url(', '').slice(0, -1).replace('https://', '').replace('http://', '')
@@ -84,7 +84,7 @@ export const Cover = async ({ json, innerBlocksJson }) => {
   }
 }
 
-export const Audio = async ({ json }) => {
+export const Audio = ({ json }) => {
   const { children: audioChildren } = json.find(el => el.tagName === 'figure')
   const [sourceUrl, caption] = audioChildren.map(el => {
     if (el.tagName === 'audio') {
