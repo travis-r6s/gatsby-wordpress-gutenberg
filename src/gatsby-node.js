@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { processBlock, transformImage } from './helpers'
+import { processBlock, transformFile } from './helpers'
 import parseBlock from './parser'
 
 export const onCreateNode = async ({ node, actions, createNodeId, createContentDigest, store, cache }, options) => {
@@ -33,7 +33,8 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
       // If we have an image, create a remote file node.
       if (block.type === 'Image') {
         try {
-          const fileNode = await transformImage(block.fields.image, { nodeData, store, cache, createNode, createNodeId })
+          const sourceUrl = block.fields.image.sourceUrl
+          const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
           if (fileNode) nodeData.fields.image.localFile___NODE = fileNode.id
         } catch (error) {
           throw new Error(error.message)
@@ -43,7 +44,8 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
         const images = []
         for await (const image of block.fields.images) {
           try {
-            const fileNode = await transformImage(image, { nodeData, store, cache, createNode, createNodeId })
+            const sourceUrl = image.sourceUrl
+            const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
             if (fileNode) images.push({ ...image, localFile___NODE: fileNode.id })
           } catch (error) {
             throw new Error(error.message)
