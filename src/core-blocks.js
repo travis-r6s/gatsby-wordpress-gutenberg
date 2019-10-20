@@ -1,5 +1,14 @@
 import { parseImage } from './helpers'
 
+export const Heading = ({ json }) => {
+  const { tagName: size, children: [text] } = json.find(el => el.type === 'element' && el.tagName.includes('h'))
+  return {
+    type: 'Heading',
+    size,
+    content: text.content
+  }
+}
+
 export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', content: innerHTML })
 
 export const Image = async ({ json }, { wp, https }) => {
