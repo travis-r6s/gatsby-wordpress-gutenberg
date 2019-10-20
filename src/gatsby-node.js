@@ -33,7 +33,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
       // If we have an image, create a remote file node.
       if (block.type === 'Image') {
         try {
-          const fileNode = await transformImage(block.image, { nodeData, store, cache, createNode, createNodeId })
+          const fileNode = await transformImage(block.fields.image, { nodeData, store, cache, createNode, createNodeId })
           if (fileNode) nodeData.image.localFile___NODE = fileNode.id
         } catch (error) {
           throw new Error(error.message)
@@ -41,7 +41,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
       }
       if (block.type === 'Gallery') {
         const images = []
-        for await (const image of block.images) {
+        for await (const image of block.fields.images) {
           try {
             const fileNode = await transformImage(image, { nodeData, store, cache, createNode, createNodeId })
             if (fileNode) images.push({ ...image, localFile___NODE: fileNode.id })
