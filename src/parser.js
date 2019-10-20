@@ -20,7 +20,7 @@ const parseBlock = async (blockContent, options) => {
   }
 
   // A few quick checks, for blacklisted blocks etc
-  if (!blockName) return { type: 'Break', fields: { content: '<br/>' } }
+  if (!blockName) return { type: 'Break', content: { html: '<br/>' } }
   if (blockName === 'core/shortcode') {
     console.error(`Page '${node.title}' contains a shortcode block, which will be ignored.`)
     return null
