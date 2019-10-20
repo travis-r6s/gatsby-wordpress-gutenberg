@@ -38,15 +38,13 @@ const parseBlock = async (blockContent, options) => {
   })
 
   try {
-    const parsedBlock = await blockCategories[ category ][ block ](blockContent, options)
-    console.log(parsedBlock)
-    if (parsedBlock) return parseBlock
-    else {
-      return {
-        type: '404',
-        content: innerHTML
-      }
+    const blockHandler = blockCategories[ category ][ block ]
+    if (!blockHandler) {
+      console.error('No handler for this block type:', category, block)
+      return
     }
+    const parsedBlock = await blockHandler(blockContent, options)
+    return parsedBlock
   } catch (error) {
     throw new Error(error.message)
   }
