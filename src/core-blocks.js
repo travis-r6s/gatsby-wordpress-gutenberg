@@ -1,20 +1,26 @@
 import { parseImage } from './helpers'
 
 export const Heading = ({ json }) => {
-  const { tagName: size, children: [text] } = json.find(el => el.type === 'element' && el.tagName.includes('h'))
+  const { tagName: size, children: headingChildren } = json.find(el => el.type === 'element' && el.tagName.includes('h'))
+  const [text] = headingChildren.map(({}))
   return {
     type: 'Heading',
-    size,
-    content: text.content
+    fields: {
+      text,
+      size
+    }
   }
 }
 
-export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', content: innerHTML })
+export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', fields: { content: innerHTML } })
 
 export const Image = async ({ json }, { wp, https }) => {
   try {
     const image = await parseImage(json, { wp, https })
-    return { type: 'Image', image }
+    return {
+      type: 'Image',
+      fields: { image }
+    }
   } catch (error) {
     throw new Error(error.message)
   }
@@ -34,7 +40,10 @@ export const Gallery = async ({ json }, { wp, https }) => {
     }
   }
 
-  return { type: 'Gallery', images }
+  return {
+    type: 'Gallery',
+    fields: { images }
+  }
 }
 
 export const List = async ({ json }) => {
@@ -42,16 +51,18 @@ export const List = async ({ json }) => {
   const items = listChildren.map(({ children: [text] }) => text.content)
   return {
     type: 'List',
-    items
+    fields: { items }
   }
 }
 
 export const Quote = async ({ json }) => {
-  const { children: QuoteChildren } = json.find(el => el.tagName === 'blockquote')
-  const [text, citation] = QuoteChildren.map(({ children: [text] }) => text.content)
+  const { children: quoteChildren } = json.find(el => el.tagName === 'blockquote')
+  const [text, citation] = quoteChildren.map(({ children: [text] }) => text.content)
   return {
     type: 'Quote',
-    text,
-    citation
+    fields: {
+      text,
+      citation
+    }
   }
 }
