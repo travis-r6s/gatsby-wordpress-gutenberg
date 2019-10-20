@@ -8,6 +8,10 @@
     "email": "travis@cirruscreative.co.uk"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thetre97/gatsby-wordpress-gutenberg"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src --out-dir .",
     "watch": "babel -w src --out-dir ."
@@ -15,7 +19,6 @@
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "babel-eslint": "^10.0.3",
     "babel-preset-gatsby-package": "^0.2.9",
     "cross-env": "^6.0.3",
@@ -29,6 +32,7 @@
     "eslint-plugin-standard": "^4.0.1"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "axios": "^0.19.0",
     "camelcase": "^5.3.1",
     "gatsby-source-filesystem": "^2.1.33",
