@@ -38,14 +38,7 @@ export const parseImage = async (json, { wp, https }) => {
   try {
     // Now fetch the original URL from the API
     const { source_url, alt_text, title } = await wp.get(id).then(({ data }) => data).catch(e => { throw new Error(e) })
-    console.log({
-      caption,
-      imageId: id,
-      altText: alt_text,
-      title: title.rendered,
-      // In dev, where httpS is self signed, we need to use http
-      sourceUrl: https ? source_url : source_url.replace('https', 'http')
-    })
+
     return {
       caption,
       imageId: id,
