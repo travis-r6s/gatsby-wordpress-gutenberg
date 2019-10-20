@@ -1,6 +1,6 @@
 import { parse } from 'himalaya'
 
-import CoreBlocks from './core-blocks'
+import * as CoreBlocks from './core-blocks'
 
 // Parse a block to turn it into consistent data object
 const parseBlock = async (blockContent, options) => {
