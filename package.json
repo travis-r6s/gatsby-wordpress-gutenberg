@@ -1,6 +1,6 @@
 {
   "name": "gatsby-wordpress-gutenberg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gutenberg Blocks plugin for gatsby-plugin-wordpress",
   "main": "index.js",
   "author": {
