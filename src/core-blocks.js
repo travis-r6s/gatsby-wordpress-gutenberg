@@ -1,6 +1,6 @@
 import { replaceImage } from './helpers'
 
-export const Paragraph = ({ innerHtml }) => ({ type: 'Paragraph', content: innerHtml })
+export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', content: innerHTML })
 
 export const Image = async ({ json }, { wp, https }) => {
   try {
