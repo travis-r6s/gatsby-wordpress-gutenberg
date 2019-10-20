@@ -67,7 +67,7 @@ export const Quote = async ({ json }) => {
   }
 }
 
-export const Audio = async ({ json }, { wp }) => {
+export const Audio = async ({ json }) => {
   const { children: audioChildren } = json.find(el => el.tagName === 'figure')
   const [sourceUrl, caption] = audioChildren.map(el => {
     if (el.tagName === 'audio') {
