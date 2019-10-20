@@ -36,7 +36,12 @@ const parseBlock = async (blockContent, options) => {
   const [category, block] = blockName.split('/').map(v => camelCase(v, { pascalCase: true }))
 
   try {
-    const blockHandler = blockCategories[ category ][ block ]
+    const blockCategory = blockCategories[ category ]
+    if (!blockCategory) {
+      console.error('No handler category for this block type:', category, block)
+      return
+    }
+    const blockHandler = blockCategory[ block ]
     if (!blockHandler) {
       console.error('No handler for this block type:', category, block)
       return
