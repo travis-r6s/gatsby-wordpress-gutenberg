@@ -23,7 +23,7 @@ const parseBlock = async (blockContent, options) => {
   if (!blockName) return { type: 'Break', content: { html: '<br/>' } }
   if (blockName === 'core/shortcode') {
     console.error(`Page '${node.title}' contains a shortcode block, which will be ignored.`)
-    return null
+    return
   }
 
   /*
@@ -39,6 +39,7 @@ const parseBlock = async (blockContent, options) => {
 
   try {
     const parsedBlock = await blockCategories[ category ][ block ](blockContent, options)
+    console.log(parsedBlock)
     if (parsedBlock) return parseBlock
     else {
       return {
