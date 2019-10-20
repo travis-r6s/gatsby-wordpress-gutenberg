@@ -4,11 +4,20 @@ import * as CoreBlocks from './core-blocks'
 
 // Parse a block to turn it into consistent data object
 const parseBlock = async (blockContent, options) => {
-  const { blockName, innerHTML } = blockContent
+  const { blockName, innerHTML, innerBlocks } = blockContent
   const { node } = options
   // Check we have HTML, and parse to JSON
   if (!innerHTML) return
   blockContent.json = parse(innerHTML)
+  if (innerBlocks) {
+    blockContent.innerBlocksJson = innerBlocks.map(block => {
+      const json = parse(block.innerHTML)
+      return {
+        ...block,
+        json
+      }
+    })
+  }
 
   // A few quick checks, for blacklisted blocks etc
   if (!blockName) return { type: 'Break', content: '<br/>' }
