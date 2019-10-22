@@ -18,7 +18,7 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
     const allParsedBlocks = []
     for (const block of node.blocks) {
       try {
-        const parsedBlock = await parseBlock(block, { node, wp, https, excludedBlocks })
+        const parsedBlock = await parseBlock(block, { node, wp, https, excludedBlocks, baseUrl })
         if (parsedBlock) allParsedBlocks.push(parsedBlock)
       } catch (error) {
         console.error(error.message)

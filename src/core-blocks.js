@@ -207,3 +207,19 @@ export const Verse = ({ json }) => {
     }
   }
 }
+
+export const Button = ({ json }, { baseUrl }) => {
+  const { children: [button] } = json.find(el => el.tagName === 'div')
+  const [text] = button.children
+  const link = button.attributes.find(({ key }) => key === 'href')
+  const slug = link.value.replace('https://', '').replace('http://', '').replace(baseUrl, '')
+
+  return {
+    type: 'Button',
+    content: {
+      text: text.content,
+      link: link.value,
+      slug
+    }
+  }
+}
