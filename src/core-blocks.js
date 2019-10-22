@@ -261,3 +261,19 @@ export const More = () => ({ type: 'More' })
 export const Nextpage = () => ({ type: 'NextPage' })
 
 export const Seperator = () => ({ type: 'Seperator' })
+
+export const Spacer = ({ json }) => {
+  const { attributes: spacerAttributes } = json.find(el => el.tagName === 'div')
+  const style = spacerAttributes.find(({ key }) => key === 'style')
+  const styleAttributes = style.value.split(';').map(attr => {
+    const [k, v] = attr.split(':')
+    return { [ k ]: v }
+  }).reduce((obj, attr) => ({ ...obj, ...attr }), {})
+
+  return {
+    type: 'Spacer',
+    content: {
+      ...styleAttributes
+    }
+  }
+}
