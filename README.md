@@ -12,7 +12,6 @@ This plugin works in conjunction with `gatsby-plugin-wordpress`, so you will nee
 add_action(
 	'rest_api_init',
 	function () {
-
 		if ( ! function_exists( 'use_block_editor_for_post_type' ) ) {
 			require ABSPATH . 'wp-admin/includes/post.php';
 		}
@@ -42,13 +41,13 @@ Now you can add this plugin.
 ```javascript
 ...
 {
-      resolve: `gatsby-wordpress-gutenberg`,
-      options: {
-        baseUrl: <url>, // Your Wordpress URL, without the protocol - required
-        https: true, // optional, default: true
-        includedTypes: ['wordpress__POST', 'wordpress__PAGE'], // Nodes that contain Gutenberg blocks to transform - optional
-        excludedBlocks: [], // Blocks to exclude - optional
-      }
+  resolve: `gatsby-wordpress-gutenberg`,
+  options: {
+    baseUrl: <url>, // Your Wordpress URL, without the protocol - required
+    https: true, // optional, default: true
+    includedTypes: ['wordpress__POST', 'wordpress__PAGE'], // Nodes that contain Gutenberg blocks to transform - optional
+    excludedBlocks: [], // Blocks to exclude - optional
+  }
 },
 ...
 ```
@@ -101,8 +100,7 @@ query Posts {
 }
 ```
 
-### Heading
-
+#### Heading
 ```graphql
 query Posts {
   allWordpressPost {
@@ -125,7 +123,7 @@ query Posts {
 
 ```
 
-### Images
+#### Images
 
 Images are downloaded and processed using `gatsby-source-filesystem`. Each `image` field will have a `localFile` object inside it.
 
