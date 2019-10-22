@@ -1,3 +1,4 @@
+import { stringify } from 'himalaya'
 import { parseImage } from './helpers'
 
 export const Heading = ({ json }) => {
@@ -191,6 +192,18 @@ export const Table = ({ json }) => {
     type: 'Table',
     content: {
       rows
+    }
+  }
+}
+
+export const Verse = ({ json }) => {
+  const { children: verseChildren } = json.find(el => el.tagName === 'pre')
+  const verseHtml = stringify(verseChildren)
+
+  return {
+    type: 'Verse',
+    content: {
+      html: verseHtml
     }
   }
 }
