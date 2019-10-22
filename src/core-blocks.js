@@ -255,3 +255,9 @@ export const MediaText = async ({ json, innerBlocksJson: [{ json: innerBlocksJso
     }
   }
 }
+
+export const More = () => ({ type: 'More' })
+
+export const Nextpage = () => ({ type: 'NextPage' })
+
+export const Seperator = () => ({ type: 'Seperator' })
