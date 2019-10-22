@@ -165,3 +165,16 @@ export const Html = ({ innerHTML }) => {
     }
   }
 }
+
+export const Pullquote = ({ json }) => {
+  const { children: [quote] } = json.find(el => el.tagName === 'figure')
+  const [text, citation] = quote.children.map(({ children: [text] }) => text.content)
+
+  return {
+    type: 'PullQuote',
+    content: {
+      text,
+      citation
+    }
+  }
+}
