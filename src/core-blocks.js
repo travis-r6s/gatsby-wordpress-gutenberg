@@ -15,9 +15,9 @@ export const Heading = ({ json }) => {
 
 export const Paragraph = ({ innerHTML }) => ({ type: 'Paragraph', content: { html: innerHTML } })
 
-export const Image = async ({ json }, { wp, https }) => {
+export const Image = async ({ json }, options) => {
   try {
-    const image = await parseImage(json, { wp, https })
+    const image = await parseImage(json, options)
     return {
       type: 'Image',
       content: { image }
@@ -27,14 +27,14 @@ export const Image = async ({ json }, { wp, https }) => {
   }
 }
 
-export const Gallery = async ({ json }, { wp, https }) => {
+export const Gallery = async ({ json }, options) => {
   const { children: imagesElements } = json.find(el => el.tagName === 'ul')
 
   const images = []
   // Now we can loop through that list, replacing images as usual, and pushing to an array
   for await (const imageEl of imagesElements) {
     try {
-      const image = await parseImage(imageEl.children, { wp, https })
+      const image = await parseImage(imageEl.children, options)
       images.push(image)
     } catch (error) {
       throw new Error(error.message)
