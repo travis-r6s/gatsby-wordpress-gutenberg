@@ -241,3 +241,17 @@ export const Columns = ({ innerBlocksJson }) => {
     }
   }
 }
+
+export const MediaText = async ({ json, innerBlocksJson: [{ json: innerBlocksJson }] }, options) => {
+  const { children: [figure] } = json.find(el => el.tagName === 'div')
+  const image = await parseImage(figure, options)
+  const text = innerBlocksJson.filter(el => el.type === 'element').map(({ tagName, children: [text] }) => ({ type: tagName, text: text.content }))
+
+  return {
+    type: 'MediaText',
+    content: {
+      image,
+      text
+    }
+  }
+}
