@@ -258,11 +258,11 @@ export const MediaText = async ({ json, innerBlocksJson: [{ json: innerBlocksJso
   }
 }
 
-export const More = () => ({ type: 'More' })
+export const More = () => ({ type: 'More', content: {} })
 
-export const Nextpage = () => ({ type: 'NextPage' })
+export const Nextpage = () => ({ type: 'NextPage', content: {} })
 
-export const Separator = () => ({ type: 'Separator' })
+export const Separator = () => ({ type: 'Separator', content: {} })
 
 export const Spacer = ({ json }) => {
   const { attributes: spacerAttributes } = json.find(el => el.tagName === 'div')
