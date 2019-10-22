@@ -262,7 +262,7 @@ export const More = () => ({ type: 'More' })
 
 export const Nextpage = () => ({ type: 'NextPage' })
 
-export const Seperator = () => ({ type: 'Seperator' })
+export const Separator = () => ({ type: 'Saperator' })
 
 export const Spacer = ({ json }) => {
   const { attributes: spacerAttributes } = json.find(el => el.tagName === 'div')
