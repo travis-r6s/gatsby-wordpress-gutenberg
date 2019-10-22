@@ -62,6 +62,33 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
           console.error(error.message)
         }
       }
+      if (block.type === 'File') {
+        try {
+          const sourceUrl = block.content.sourceUrl
+          const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
+          if (fileNode) nodeData.content.localFile___NODE = fileNode.id
+        } catch (error) {
+          console.error(error.message)
+        }
+      }
+      if (block.type === 'Video') {
+        try {
+          const sourceUrl = block.content.sourceUrl
+          const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
+          if (fileNode) nodeData.content.localFile___NODE = fileNode.id
+        } catch (error) {
+          console.error(error.message)
+        }
+      }
+      if (block.type === 'MediaText') {
+        try {
+          const sourceUrl = block.content.image.sourceUrl
+          const fileNode = await transformFile(sourceUrl, { nodeData, store, cache, createNode, createNodeId })
+          if (fileNode) nodeData.content.image.localFile___NODE = fileNode.id
+        } catch (error) {
+          console.error(error.message)
+        }
+      }
 
       // Delete the JSON field
       delete nodeData.json
