@@ -22,9 +22,9 @@ export const processBlock = (block, { node, createNodeId, createContentDigest })
 export const parseImage = async (json, { wp, https }) => {
   let figureEl = json
   if (Array.isArray(json)) {
-    // Find the first img element
     figureEl = json.find(el => el.tagName === 'figure')
   }
+  // Find the first img element
   const imageEl = figureEl.children.find(child => child.tagName === 'img')
   const captionEl = figureEl.children.find(child => child.tagName === 'figcaption')
 
