@@ -107,7 +107,7 @@ export const Audio = ({ json }, { https }) => {
   }
 }
 
-export const File = async ({ json }) => {
+export const File = ({ json }) => {
   const { children: [file] } = json.find(el => el.tagName === 'div')
   const { attributes: [sourceUrl], children: [text] } = file
 
@@ -120,7 +120,7 @@ export const File = async ({ json }) => {
   }
 }
 
-export const Video = async ({ json }) => {
+export const Video = ({ json }) => {
   const { children: [video] } = json.find(el => el.tagName === 'figure')
   const [sourceUrl] = video.attributes.filter(({ key }) => key === 'src')
   const videoAttributes = video.attributes.filter(({ key }) => key !== 'src').reduce((obj, attr) => ({ ...obj, [ attr.key ]: attr.value || true }), {})
@@ -130,6 +130,38 @@ export const Video = async ({ json }) => {
     content: {
       sourceUrl: sourceUrl.value,
       ...videoAttributes
+    }
+  }
+}
+
+export const Preformatted = ({ json }) => {
+  const { children: [text] } = json.find(el => el.tagName === 'pre')
+
+  return {
+    type: 'Preformatted',
+    content: {
+      text: text.content
+    }
+  }
+}
+
+export const Code = ({ json }) => {
+  const { children: [code] } = json.find(el => el.tagName === 'pre')
+  const [text] = code.children
+
+  return {
+    type: 'Code',
+    content: {
+      code: text.content
+    }
+  }
+}
+
+export const Html = ({ innerHTML }) => {
+  return {
+    type: 'HTML',
+    content: {
+      html: innerHTML
     }
   }
 }
