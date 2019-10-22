@@ -90,8 +90,6 @@ export const onCreateNode = async ({ node, actions, createNodeId, createContentD
         }
       }
 
-      // Delete the JSON field
-      delete nodeData.json
       // Create the Node
       await createNode(nodeData)
       // Push the Node ID to the array to use in parent block
