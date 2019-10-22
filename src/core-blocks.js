@@ -178,3 +178,19 @@ export const Pullquote = ({ json }) => {
     }
   }
 }
+
+export const Table = ({ json }) => {
+  const { children: [body] } = json.find(el => el.tagName === 'table')
+  const rows = body.children.map(({ children: rowChildren }, i) => {
+    const index = i + 1
+    const columns = rowChildren.map(({ children: [text] }, i) => ({ index: i + 1, text: text.content }))
+    return { index, columns }
+  })
+
+  return {
+    type: 'Table',
+    content: {
+      rows
+    }
+  }
+}
