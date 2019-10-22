@@ -123,7 +123,7 @@ export const File = async ({ json }) => {
 export const Video = async ({ json }) => {
   const { children: [video] } = json.find(el => el.tagName === 'figure')
   const [sourceUrl] = video.attributes.filter(({ key }) => key === 'src')
-  const videoAttributes = video.attributes.filter(({ key }) => key !== 'src').reduce((obj, { key }) => ({ ...obj, [ key ]: true }), {})
+  const videoAttributes = video.attributes.filter(({ key }) => key !== 'src').reduce((obj, attr) => ({ ...obj, [ attr.key ]: attr.value || true }), {})
 
   return {
     type: 'Video',
