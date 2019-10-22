@@ -106,3 +106,16 @@ export const Audio = ({ json }, { https }) => {
     }
   }
 }
+
+export const File = async ({ json }) => {
+  const { children: [file] } = json.find(el => el.tagName === 'div')
+  const { attributes: [{ value: sourceUrl }], children: [text] } = file
+
+  return {
+    type: 'File',
+    fields: {
+      sourceUrl,
+      text: text.content
+    }
+  }
+}
