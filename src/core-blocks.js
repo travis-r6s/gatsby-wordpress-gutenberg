@@ -1,4 +1,4 @@
-import { stringify } from 'himalaya'
+import { stringify, parse } from 'himalaya'
 import { parseImage } from './helpers'
 
 export const Heading = ({ json }) => {
@@ -220,6 +220,24 @@ export const Button = ({ json }, { baseUrl }) => {
       text: text.content,
       link: link.value,
       slug
+    }
+  }
+}
+
+export const Columns = ({ innerBlocksJson }) => {
+  const columns = innerBlocksJson.map(({ innerBlocks }) => {
+    const [{ children: [header] }, ...rest] = innerBlocks.map(({ innerHTML }) => parse(innerHTML).find(el => el.type === 'element'))
+    const content = rest.map(({ children: [text] }) => text.content)
+    return {
+      header: header.content,
+      content
+    }
+  })
+
+  return {
+    type: 'Columns',
+    content: {
+      columns
     }
   }
 }
