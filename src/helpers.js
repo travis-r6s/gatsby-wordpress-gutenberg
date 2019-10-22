@@ -20,8 +20,11 @@ export const processBlock = (block, { node, createNodeId, createContentDigest })
 
 // Replace Image HTML with Object containing ID and original URL
 export const parseImage = async (json, { wp, https }) => {
-  // Find the first img element
-  const figureEl = json.find(el => el.tagName === 'figure')
+  let figureEl = json
+  if (Array.isArray(json)) {
+    // Find the first img element
+    figureEl = json.find(el => el.tagName === 'figure')
+  }
   const imageEl = figureEl.children.find(child => child.tagName === 'img')
   const captionEl = figureEl.children.find(child => child.tagName === 'figcaption')
 
