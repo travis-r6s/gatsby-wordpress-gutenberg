@@ -227,7 +227,7 @@ export const Button = ({ json }, { baseUrl }) => {
 export const Columns = ({ innerBlocksJson }) => {
   const columns = innerBlocksJson.map(({ innerBlocks }) => {
     const [{ children: [header] }, ...rest] = innerBlocks.map(({ innerHTML }) => parse(innerHTML).find(el => el.type === 'element'))
-    const content = rest.map(({ children: [text] }) => text.content)
+    const content = rest.map(({ tagName, children: [text] }) => ({ type: tagName, text: text.content }))
     return {
       header: header.content,
       content
@@ -250,8 +250,8 @@ export const MediaText = async ({ json, innerBlocksJson: [{ json: innerBlocksJso
   return {
     type: 'MediaText',
     content: {
-      image,
-      text
+      content: text,
+      image
     }
   }
 }
