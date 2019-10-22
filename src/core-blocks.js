@@ -108,28 +108,30 @@ export const Audio = ({ json }, { https }) => {
   }
 }
 
-export const File = ({ json }) => {
+export const File = ({ json }, { https }) => {
   const { children: [file] } = json.find(el => el.tagName === 'div')
-  const { attributes: [sourceUrl], children: [text] } = file
+  const { attributes: [source], children: [text] } = file
+  const sourceUrl = https ? source.value.replace('http://', 'https://') : source.value.replace('https://', 'http://')
 
   return {
     type: 'File',
     content: {
-      sourceUrl: sourceUrl.value,
+      sourceUrl,
       text: text.content
     }
   }
 }
 
-export const Video = ({ json }) => {
+export const Video = ({ json }, { https }) => {
   const { children: [video] } = json.find(el => el.tagName === 'figure')
-  const [sourceUrl] = video.attributes.filter(({ key }) => key === 'src')
+  const [source] = video.attributes.filter(({ key }) => key === 'src')
+  const sourceUrl = https ? source.value.replace('http://', 'https://') : source.value.replace('https://', 'http://')
   const videoAttributes = video.attributes.filter(({ key }) => key !== 'src').reduce((obj, attr) => ({ ...obj, [ attr.key ]: attr.value || true }), {})
 
   return {
     type: 'Video',
     content: {
-      sourceUrl: sourceUrl.value,
+      sourceUrl,
       ...videoAttributes
     }
   }
